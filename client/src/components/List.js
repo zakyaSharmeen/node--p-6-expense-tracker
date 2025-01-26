@@ -24,16 +24,27 @@ import {default as api} from "../store/apiSlice"
     
     // ]
      const {data,isFetching,isError,isSuccess} = api.useGetLabelsQuery()
-        console.log({ mssg: "comming from lists",data,isFetching,isError,isSuccess});
-    
-    
+        // console.log({ mssg: "comming from lists",data,isFetching,isError,isSuccess});
+
+        const [deleteTransaction] = api.useDeleteTransactionMutation()
         let Transactions;
+
+
+        const handleClick = (e) =>{
+            // console.log({mssg:"clickde bttn"})
+            // console.log(e.target)
+            // console.log(e.target.dataset.id);
+            if(!e.target.dataset.id) return 0;
+            deleteTransaction({_id:e.target.dataset.id})
+            
+
+        }
     
         if(isFetching){
             Transactions = <div>FETCHING</div>
         }else if(isSuccess){
             Transactions = data.map((value, i) => 
-                <Transition key={i} category={value}></Transition>
+                <Transition key={i} category={value} handler = {handleClick}></Transition>
              )
         }else if (isError){
             Transactions = <div>Error</div>
@@ -48,11 +59,11 @@ import {default as api} from "../store/apiSlice"
   )
 }
 
-function Transition({category}){
+function Transition({category, handler}){
     if(!category) return null;
     return(
         <div className="item flex justify-center bg-gray-50 py-2 rounded-r" style={{ borderRight : `8px solid ${category.color ??  "#e5e5e5"}`}}>
-            <button className='px-3'><box-icon name="trash" color={category.color ?? "#e5e5e5"}></box-icon></button>            
+            <button className='px-3' onClick={handler}><box-icon data-id={category._id ?? ""} name="trash" color={category.color ?? "#e5e5e5"}></box-icon></button>            
             <span className='block w-full'>{category.name ?? ""}</span>
         </div>
     )

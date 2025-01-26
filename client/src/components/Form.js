@@ -33,9 +33,9 @@ function Form() {
                     <input type="text" {...register('name')}  placeholder='Salary, House Rend, SIP' className='form-input' />
                 </div>
                 <select className='form-input' {...register('type')}>
-                    <option value="Investment" defaultValue>investment</option>
+                    <option value="Investment" defaultValue>Investment</option>
                     <option value="Expense">Expense</option>
-                    <option value="Savings">Savings</option>
+                    <option value="Saving">Saving</option>
                 </select>
                 <div className="input-group">
                     <input type="text" {...register('amount')}  placeholder='Amount' className='form-input' />

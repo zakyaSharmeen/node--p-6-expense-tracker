@@ -3,8 +3,8 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const categories_model = new Schema({
-    type:{type: String, default: "Investmeny"},
-    color: {type:String, default: "red"}
+    type:{type: String, default: "Anonymous"},
+    color: {type:String, default: "Anonymous"}
 })
 
 const transaction_model = new Schema({

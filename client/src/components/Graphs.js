@@ -2,6 +2,9 @@ import React from 'react'
 import {Chart, ArcElement} from  "chart.js"
 import {Doughnut} from "react-chartjs-2"
 import Labels from './Labels'
+import { chart_Data, getTotal } from '../helper/helper'
+import { default as api } from "../store/apiSlice";
+
 
 
 // steps to use chart.js
@@ -15,61 +18,60 @@ import Labels from './Labels'
 
 
 Chart.register(ArcElement)
+// const config ={
+//   data:{
+//       labels: [
+//         'Red',
+//         'Blue',
+//         'Yellow'
+//       ],
+//       datasets: [{
+//         label: 'My First Dataset',
+//         data: [300, 50, 100],
+//         backgroundColor: [
+//           'rgb(255, 99, 132)',
+//           'rgb(54, 162, 235)',
+//           'rgb(255, 205, 86)'
+//         ],
+//         hoverOffset: 4,
+//         borderRadius:30,
+//         spacing:10
+
+//       }]
+//     },
+//     options: {
+//       cutout:115
+//     }
+
+// }
 
 function Graphs() {
+   const { data, isFetching, isError, isSuccess } = api.useGetLabelsQuery();
+   
+  
+    let graphData;
+  
+    if (isFetching) {
+      graphData = <div>FETCHING</div>;
+    } else if (isSuccess) {
+      // chart_Data(data)
+      graphData =  <Doughnut {...chart_Data(data)}></Doughnut>
 
-    const config ={
-        data:{
-            labels: [
-              'Red',
-              'Blue',
-              'Yellow'
-            ],
-            datasets: [{
-              label: 'My First Dataset',
-              data: [300, 50, 100],
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
-              ],
-              hoverOffset: 4,
-              borderRadius:30,
-              spacing:10
-
-            }]
-          },
-          options: {
-            cutout:115
-          }
-
+   
+    } else if (isError) {
+      graphData = <div>Error</div>;
     }
-    // const data = {
-    //     labels: [
-    //       'Red',
-    //       'Blue',
-    //       'Yellow'
-    //     ],
-    //     datasets: [{
-    //       label: 'My First Dataset',
-    //       data: [300, 50, 100],
-    //       backgroundColor: [
-    //         'rgb(255, 99, 132)',
-    //         'rgb(54, 162, 235)',
-    //         'rgb(255, 205, 86)'
-    //       ],
-    //       hoverOffset: 4
-    //     }]
-    //   };
+
   return (
     <div>
          <div className="flex justify-content max-w-xs mx-auto">
         <div className="item">
             <div className="chart relative">
                {/* <Doughnut data={config}</Doughnut> */}
-               <Doughnut {...config}></Doughnut>
-                <h3 className='mb-4 font-bold title'>Total
-                    <span className='block text-3xl text-emerald-400'>0</span>
+               {/* <Doughnut {...config}></Doughnut> */}
+               {graphData}
+                <h3 className='mb-4 font-bold title'> TOTAL
+                    <span className='block text-3xl text-green-400'>$ {getTotal(data) ?? 0}</span>
                 </h3> 
             </div>   
 

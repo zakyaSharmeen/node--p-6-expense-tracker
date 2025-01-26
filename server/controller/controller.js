@@ -25,8 +25,8 @@ const model = require("../models/model");
 async function create_Categories(req, res) {
     try {
         const Create = new model.Categories({
-            type: "expenditure", 
-            color: "yellow",
+            type: req.body.type, 
+            color: req.body.color
         });
 
         // Save the document and wait for the result
