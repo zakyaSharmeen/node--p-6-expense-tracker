@@ -1,5 +1,4 @@
 import React from 'react'
-import boxicons from "boxicons"
 import {default as api} from "../store/apiSlice"
 
 

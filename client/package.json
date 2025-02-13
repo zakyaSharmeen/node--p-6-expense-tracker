@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1"
+    "postcss": "^8.5.1",
+    "react-app-rewired": "^2.2.1"
   }
 }
